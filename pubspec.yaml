@@ -1,6 +1,6 @@
 name: calculadora_aha
 description: A new Jaspr project
-version: 0.0.1
+version: 1.0.1
 
 environment:
   sdk: ^3.10.0
