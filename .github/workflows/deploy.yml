@@ -1,16 +1,16 @@
-name: Deploy para GitHub Pages
+name: Deploy to GitHub Pages
 
+# Deploys ONLY on version tags (e.g. `git tag v1.0.0 && git push origin v1.0.0`).
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
+    tags:
+      - "v*"
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Evita deploys concorrentes; um novo push cancela o deploy anterior em andamento.
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -20,18 +20,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Configurar Dart SDK (stable)
+      - name: Set up Dart
         uses: dart-lang/setup-dart@v1
         with:
           sdk: stable
 
-      - name: Instalar jaspr_cli
-        # Versão fixa = build reproduzível (mesma do pubspec.yaml).
-        run: dart pub global activate jaspr_cli 0.23.2
+      - name: Activate jaspr_cli
+        run: dart pub global activate jaspr_cli
 
-      - name: Resolver dependências
+      - name: Install dependencies
         run: dart pub get
 
       - name: Build estático do site (Jaspr static mode)
@@ -39,13 +38,16 @@ jobs:
           BASE_HREF: /calculadora_aha/
         run: jaspr build
 
-      - name: Configurar GitHub Pages
-        uses: actions/configure-pages@v5
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
 
-      - name: Empacotar artefato (build/jaspr/)
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload static output
+        uses: actions/upload-pages-artifact@v5
         with:
-          path: build/jaspr/
+          path: build/jaspr
+          # Minimum retention (1 day): the artifact only needs to survive
+          # until the deploy job picks it up — avoids filling Actions storage.
+          retention-days: 1
 
   deploy:
     needs: build
@@ -54,6 +56,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Publicar no GitHub Pages
+      - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
