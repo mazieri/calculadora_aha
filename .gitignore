@@ -1,0 +1,37 @@
+# ===== Dart / Pub / Jaspr (essenciais) =====
+.dart_tool/
+.packages
+**/doc/api/
+
+# Saída de build (jaspr build gera build/jaspr/)
+/build/
+
+# ===== Artefatos locais e temporários =====
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# ===== IDEs e editores =====
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+.claude/
+
+# ===== Segredos e config local =====
+.env*
+
+# ===== Não essenciais ao projeto (notas, rascunhos, planejamento) =====
+etc/
+docs/
+plan.md
+scripts/
+package.json
