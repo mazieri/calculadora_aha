@@ -1,0 +1,71 @@
+<svg id="heart-svg" xmlns="http://www.w3.org/2000/svg" viewBox="17 60 640 660" fill="none">
+  <!--
+    Coração humano anatômico em line-art (vista anterior, convenção artística:
+    ápice para baixo-esquerda, arco aórtico com 3 ramos no topo).
+    Desenhado à mão para a Calculadora PREVENT pt-BR — sem material com copyright.
+    Grupos com ids permitem animação CSS/SMIL direcionada.
+  -->
+  <g id="heart" stroke="#e5484d" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- Grandes vasos -->
+    <g id="heart-vessels" stroke-width="2.5">
+
+      <!-- Aorta: fita aberta — ascendente longa, arco estreito à esquerda, descendente atrás do átrio -->
+      <g id="aorta">
+        <path id="aorta-arch" d="M 350,298
+          C 349,273 348,248 349,222
+          A 62 62 0 0 0 231,194
+          L 254,203
+          A 38 38 0 0 1 323,222
+          C 322,244 321,266 320,288"/>
+        <!-- 3 ramos do arco: tronco braquiocefálico, carótida comum esquerda, subclávia esquerda -->
+        <g id="aorta-branches">
+          <path d="M 305,172 C 301,160 298,148 295,135 M 319,167 C 316,155 313,143 310,130 M 295,135 L 310,130"/>
+          <path d="M 279,163 C 277,151 276,139 275,127 M 292,163 C 291,151 290,139 289,126 M 275,127 L 289,126"/>
+          <path d="M 252,167 C 248,156 244,145 240,134 M 266,171 C 262,160 259,149 255,138 M 240,134 L 255,138"/>
+        </g>
+      </g>
+
+      <!-- Tronco pulmonar: emerge à frente da aorta, ramo esquerdo visível -->
+      <path id="pulmonary-trunk" d="M 314,296
+        C 306,266 292,244 270,230
+        C 250,217 224,211 196,218
+        L 202,244
+        C 228,240 250,248 266,262
+        C 286,278 296,290 298,304"/>
+
+      <!-- Veia cava superior: tubo entrando no topo do átrio direito -->
+      <path id="vena-cava-superior" d="M 444,124 C 446,154 449,186 453,226 M 478,120 C 479,150 478,182 477,224 M 444,124 L 478,120"/>
+    </g>
+
+    <!-- Silhueta do corpo cardíaco -->
+    <path id="heart-outline" stroke-width="3" d="M 190,250
+      C 178,254 170,264 172,276
+      C 173,282 175,286 178,290
+      C 148,304 120,332 110,372
+      C 98,418 102,472 126,522
+      C 150,572 198,622 252,654
+      C 260,660 270,661 278,655
+      C 316,640 350,606 378,564
+      C 408,518 434,478 464,452
+      C 496,424 530,398 548,362
+      C 564,330 572,296 562,264
+      C 554,240 536,224 512,216
+      C 496,211 482,209 470,211
+      C 448,215 430,225 416,239
+      C 400,255 382,267 360,273
+      C 334,280 306,281 282,275
+      C 258,269 236,259 214,253
+      C 206,251 197,250 190,250 Z"/>
+
+    <!-- Sulcos e coronárias de superfície -->
+    <g id="heart-details" stroke-width="1.5">
+      <!-- Sulco atrioventricular (coronário) -->
+      <path id="sulcus-av-left" d="M 180,296 C 198,314 224,330 254,340"/>
+      <path id="sulcus-av-right" d="M 372,332 C 404,362 438,392 476,410 C 484,414 492,416 500,414"/>
+      <!-- Sulco interventricular anterior + ramos da descendente anterior -->
+      <path id="sulcus-iv" d="M 330,318 C 322,368 308,426 294,484 C 282,536 272,586 271,624"/>
+      <path id="coronary-branches" d="M 312,396 C 326,404 337,413 345,424 M 296,462 C 310,470 321,479 329,490 M 302,428 C 289,436 278,445 270,456 M 284,528 C 296,536 306,544 313,554"/>
+    </g>
+  </g>
+</svg>

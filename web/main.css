@@ -1,0 +1,1236 @@
+/* ==========================================================================
+   Calculadora PREVENT™ pt-BR — estilos globais
+   Tema escuro clean, vidro fosco, acento #e5484d.
+   A camada do coração (web/heart.css) fica atrás; todo o conteúdo usa
+   z-index maior via .page-content.
+   ========================================================================== */
+
+:root {
+  --bg: #0a0a0b;
+  --text: #ededed;
+  --text-muted: #a1a1aa;
+  --accent: #e5484d;
+  --accent-hover: #f2555a;
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --radius: 16px;
+  --field-bg: rgba(255, 255, 255, 0.05);
+  --field-border: rgba(255, 255, 255, 0.12);
+  --error: #f87171;
+  --cat-low: #4ade80;
+  --cat-borderline: #facc15;
+  --cat-intermediate: #fb923c;
+  --cat-high: #f87171;
+}
+
+/* ---------- Reset leve ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text-muted);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text);
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- Camadas ---------- */
+.page-content {
+  position: relative;
+  z-index: 1; /* acima da camada do coração */
+}
+
+/* ---------- Vidro fosco ---------- */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+}
+
+.section-title {
+  font-size: 1.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  margin: 2rem 0 1rem;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem 6rem;
+}
+
+.hero-inner {
+  max-width: 720px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  max-width: 56ch;
+  margin: 0 auto 1.5rem;
+}
+
+.hero-link {
+  font-weight: 600;
+}
+
+.scroll-chevron {
+  position: absolute;
+  left: 50%;
+  bottom: 2.25rem;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  animation: chevron-bounce 2.2s ease-in-out infinite;
+}
+
+/* Sem círculo/bolinha de fundo no hover — apenas brilho sutil na seta */
+.scroll-chevron:hover,
+.scroll-chevron:focus-visible {
+  background: transparent;
+  outline: none;
+}
+
+/* Chevron fino em "V" */
+.chevron-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-right: 2px solid rgba(237, 237, 237, 0.55);
+  border-bottom: 2px solid rgba(237, 237, 237, 0.55);
+  transform: rotate(45deg) translate(-2px, -2px);
+  border-bottom-right-radius: 3px;
+  transition: border-color 0.2s ease, filter 0.2s ease;
+}
+
+.scroll-chevron:hover .chevron-icon,
+.scroll-chevron:focus-visible .chevron-icon {
+  border-color: var(--accent);
+  filter: drop-shadow(0 0 6px rgba(229, 72, 77, 0.6));
+}
+
+@keyframes chevron-bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-chevron {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------- Seções / cards ---------- */
+.calculator-section,
+.results-section {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+}
+
+.calculator-card,
+.results-card {
+  width: 100%;
+  max-width: 880px;
+  padding: 2.5rem 2rem;
+}
+
+/* ---------- Elegibilidade ---------- */
+.eligibility {
+  margin-bottom: 2rem;
+}
+
+.eligibility-question {
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.choice-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.choice-btn {
+  padding: 0.6rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--field-bg);
+  border: 1px solid var(--field-border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.choice-btn:hover {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.choice-btn.selected {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.alert-card {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(229, 72, 77, 0.08);
+  border: 1px solid rgba(229, 72, 77, 0.35);
+  border-radius: var(--radius);
+}
+
+.alert-card p:last-child {
+  margin-bottom: 0;
+}
+
+.alert-title {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* ---------- Formulário ---------- */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem 1.5rem;
+}
+
+@media (min-width: 720px) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.span-2 {
+  grid-column: 1 / -1;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field-label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.field-unit {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.field-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.field-input,
+select.field-input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--field-bg);
+  border: 1px solid var(--field-border);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field-input::placeholder {
+  color: rgba(161, 161, 170, 0.5);
+}
+
+.field-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.18);
+}
+
+.field-input:disabled {
+  opacity: 0.5;
+}
+
+select.field-input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+select.field-input option {
+  background: #141416;
+  color: var(--text);
+}
+
+.field-invalid .field-input {
+  border-color: var(--error);
+}
+
+.field-error {
+  color: var(--error);
+  font-size: 0.85rem;
+}
+
+/* ---------- Mini-calculadoras (IMC / eGFR) ---------- */
+.mini-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mini-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.mini-toggle-track {
+  position: relative;
+  width: 34px;
+  height: 20px;
+  flex: none;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  transition: background-color 0.2s ease;
+}
+
+.mini-toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.mini-toggle input:checked + .mini-toggle-track {
+  background: var(--accent);
+}
+
+.mini-toggle input:checked + .mini-toggle-track::after {
+  transform: translateX(14px);
+}
+
+.mini-toggle input:focus-visible + .mini-toggle-track {
+  box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.18);
+}
+
+.mini-toggle-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.mini-calc {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed var(--field-border);
+  border-radius: 12px;
+}
+
+@media (max-width: 480px) {
+  .mini-calc {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mini-calc-result {
+  grid-column: 1 / -1;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.mini-calc-hint {
+  grid-column: 1 / -1;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* ---------- Switches (diabetes, tabagismo, etc.) ---------- */
+.switch-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem 2rem;
+}
+
+@media (min-width: 720px) {
+  .switch-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  flex: none;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  transition: background-color 0.2s ease;
+}
+
+.switch-slider::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.switch input:checked + .switch-slider {
+  background: var(--accent);
+}
+
+.switch input:checked + .switch-slider::after {
+  transform: translateX(20px);
+}
+
+.switch input:focus-visible + .switch-slider {
+  box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.18);
+}
+
+.switch-label {
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+/* ---------- Bloco avançado ---------- */
+.advanced-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--field-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.advanced-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.advanced-chevron {
+  display: block;
+  width: 9px;
+  height: 9px;
+  flex: none;
+  border-right: 2px solid var(--text-muted);
+  border-bottom: 2px solid var(--text-muted);
+  transform: rotate(-45deg);
+  transition: transform 0.2s ease;
+}
+
+.advanced-toggle.open .advanced-chevron {
+  transform: rotate(45deg);
+}
+
+.advanced-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem 1.5rem;
+  padding: 1.25rem 0.25rem 0.25rem;
+}
+
+@media (min-width: 720px) {
+  .advanced-body {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.advanced-note {
+  grid-column: 1 / -1;
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-bottom: 0;
+}
+
+/* ---------- Botão primário ---------- */
+.submit-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.btn-primary {
+  padding: 0.9rem 3rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.35);
+}
+
+/* ---------- Resultados ---------- */
+.results-intro {
+  margin-bottom: 1.75rem;
+}
+
+.risk-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 720px) {
+  .risk-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .risk-grid .risk-highlight {
+    grid-column: 1 / -1;
+  }
+}
+
+.risk-card {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  text-align: center;
+}
+
+.risk-highlight {
+  padding: 2rem 1.5rem;
+  border-color: rgba(229, 72, 77, 0.4);
+  background: rgba(229, 72, 77, 0.06);
+}
+
+.risk-title {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.risk-highlight .risk-title {
+  font-size: 1.2rem;
+}
+
+.risk-percent {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.risk-highlight .risk-percent {
+  font-size: 3.2rem;
+}
+
+.risk-percent.cat-low {
+  color: var(--cat-low);
+}
+
+.risk-percent.cat-borderline {
+  color: var(--cat-borderline);
+}
+
+.risk-percent.cat-intermediate {
+  color: var(--cat-intermediate);
+}
+
+.risk-percent.cat-high {
+  color: var(--cat-high);
+}
+
+.risk-category {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+.risk-category.cat-low {
+  color: var(--cat-low);
+  background: rgba(74, 222, 128, 0.12);
+}
+
+.risk-category.cat-borderline {
+  color: var(--cat-borderline);
+  background: rgba(250, 204, 21, 0.12);
+}
+
+.risk-category.cat-intermediate {
+  color: var(--cat-intermediate);
+  background: rgba(251, 146, 60, 0.12);
+}
+
+.risk-category.cat-high {
+  color: var(--cat-high);
+  background: rgba(248, 113, 113, 0.12);
+}
+
+.risk-desc {
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+}
+
+.results-note {
+  padding: 0.9rem 1.1rem;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+}
+
+.results-disclaimer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--glass-border);
+  font-size: 0.9rem;
+}
+
+.results-disclaimer p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Rodapé ---------- */
+.app-footer {
+  display: flex;
+  flex-direction: column; /* assinatura fica ABAIXO do card, não ao lado */
+  align-items: center;
+  padding: 2rem 1.25rem 3rem; /* mesmo padding lateral das demais seções */
+}
+
+.footer-card {
+  width: 100%;
+  max-width: 880px; /* mesma largura máxima dos cards de conteúdo */
+  padding: 2rem;
+  font-size: 0.9rem;
+  /* vidro reforçado explicitamente nos tokens do tema (além da .glass) */
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+}
+
+.footer-disclaimer {
+  margin-bottom: 1.5rem;
+}
+
+.footer-disclaimer strong {
+  color: var(--text);
+}
+
+.footer-sources {
+  margin-bottom: 1.5rem;
+}
+
+.footer-sources-title {
+  color: var(--text);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.footer-official-link {
+  font-weight: 600;
+}
+
+/* ---------- Top bar do hero ---------- */
+/* Classes exclusivas desta barra (top-bar*) — não confundir com a
+   .doc-topbar da página /doc, que tem estilos próprios. */
+.top-bar {
+  position: absolute;
+  top: 1.25rem;
+  /* Container centralizado na mesma largura do conteúdo da /doc
+     (.doc-topbar-inner: max-width 880px): os links ficam colados na
+     borda direita DO CONTEÚDO, não da viewport. */
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(880px, 100% - 4rem); /* 2rem de respiro lateral em desktop */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* 'documentação' + GitHub à direita do container */
+  z-index: 2;
+}
+
+/* Itens inline (desktop): texto e ícone na mesma linha de base central */
+.top-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* 16px consistentes entre link e ícone */
+}
+
+.top-bar-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.top-bar-link:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.top-bar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.top-bar-icon:hover {
+  color: var(--text);
+}
+
+/* Botão hamburger (3 traços) — escondido em desktop */
+.top-bar-menu-btn {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.top-bar-menu-btn:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.top-bar-menu-line {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+}
+
+/* Dropdown mobile: escondido por padrão (desktop) */
+.top-bar-menu {
+  display: none;
+}
+
+/* Mobile (≤720px): colapsa em hamburger + painel dropdown em vidro */
+@media (max-width: 720px) {
+  .top-bar {
+    top: 1rem;
+    /* Mantém o container centralizado; 1.25rem de respiro lateral faz o
+       botão ☰ ficar à direita do container, como antes na viewport. */
+    width: min(880px, 100% - 2.5rem);
+  }
+
+  .top-bar-actions {
+    display: none;
+  }
+
+  .top-bar-menu-btn {
+    display: inline-flex;
+  }
+
+  .top-bar-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 180px;
+    padding: 0.5rem;
+    z-index: 3;
+  }
+
+  .top-bar-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 10px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .top-bar-menu-link:hover {
+    color: var(--accent);
+    background: rgba(255, 255, 255, 0.06);
+    text-decoration: none;
+  }
+
+  .top-bar-menu-github svg {
+    flex: none;
+  }
+}
+
+/* ---------- Página /doc ---------- */
+.doc-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(10, 10, 11, 0.7);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.doc-topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
+}
+
+.doc-topbar-home {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.doc-topbar-home:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.lang-toggle {
+  display: inline-flex;
+  padding: 3px;
+  background: var(--field-bg);
+  border: 1px solid var(--field-border);
+  border-radius: 999px;
+}
+
+.lang-option {
+  padding: 0.3rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.lang-option:hover {
+  color: var(--text);
+}
+
+.lang-option.active {
+  color: #fff;
+  background: var(--accent);
+}
+
+.doc-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2.5rem 1.25rem 3rem;
+  /* Corpo de texto da /doc um tom mais claro que o --text-muted (#a1a1aa)
+     para manter o contraste sobre o vidro escurecido (títulos seguem
+     em --text #ededed via regra global de h1–h4). */
+  color: #c9c9d1;
+}
+
+.doc-header,
+.doc-section {
+  width: 100%;
+  max-width: 880px;
+  padding: 2rem;
+}
+
+.doc-section {
+  scroll-margin-top: 5rem; /* compensa a barra superior fixa nas âncoras */
+}
+
+/* Vidro das seções da /doc reforçado: bem mais opaco que o .glass padrão
+   (rgba(255,255,255,0.04)) para o coração 3D não brilhar atrás do texto.
+   Mantém a estética de vidro: borda 1px rgba(255,255,255,0.08), radius 16px. */
+.doc-header.glass,
+.doc-section.glass,
+body[data-route='doc'] .footer-card {
+  background: rgba(10, 10, 12, 0.78);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+/* Dimming do coração SOMENTE na /doc: o hook body[data-route='doc'] é
+   exposto pelo script da camada 3D (web/heart3d.js). Mesmo sem o hook,
+   o vidro escurecido acima já garante a legibilidade. */
+body[data-route='doc'] .heart3d-layer {
+  opacity: 0.25;
+  transition: opacity 0.4s ease;
+}
+
+body[data-route='doc'] .heart-bg > img,
+body[data-route='doc'] .heart-bg > svg {
+  opacity: 0.15; /* heart.css usa 0.35; na /doc o fallback quase some */
+}
+
+/* Legibilidade da calculadora na home (moderado — menos radical que a
+   /doc): vidro levemente mais escuro nos cards interativos, para o texto
+   não brigar com o brilho do coração. */
+body[data-route='home'] .hero-inner.glass,
+body[data-route='home'] .calculator-card.glass,
+body[data-route='home'] .results-card.glass,
+body[data-route='home'] .footer-card.glass {
+  background: rgba(10, 10, 12, 0.45);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.doc-title {
+  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  margin-bottom: 0.5rem;
+}
+
+.doc-subtitle {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.doc-disclaimer {
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  background: rgba(229, 72, 77, 0.06);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+}
+
+.doc-disclaimer-text {
+  margin-bottom: 0.5rem;
+}
+
+.doc-disclaimer-text strong {
+  color: var(--text);
+}
+
+/* Data de acesso às fontes — linha própria, em maiúsculo e negrito */
+.doc-disclaimer-access {
+  margin: 0.25rem 0 0.5rem;
+  text-transform: uppercase;
+}
+
+.doc-disclaimer-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.doc-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.doc-toc-chip {
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text-muted);
+  background: var(--field-bg);
+  border: 1px solid var(--field-border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.doc-toc-chip:hover {
+  color: var(--accent);
+  border-color: rgba(229, 72, 77, 0.5);
+}
+
+.doc-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.doc-paragraph {
+  margin-bottom: 1rem;
+}
+
+.doc-paragraph:last-child,
+.doc-list:last-child {
+  margin-bottom: 0;
+}
+
+.doc-sources li {
+  margin-bottom: 0.75rem;
+}
+
+/* Assinatura do rodapé — centralizada logo abaixo do card, em maiúsculo
+   via CSS (a string no Dart permanece em caixa original) */
+.footer-signature {
+  margin: 1.25rem auto 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #71717a;
+  text-transform: uppercase;
+  letter-spacing: 0.12em; /* respiro leve p/ o caps ficar elegante */
+}
+
+/* ---------- Voltar ao topo (/doc) ---------- */
+
+/* Desktop (>720px): seta fixa no canto inferior direito, no mesmo estilo
+   da setinha de scroll da home, porém apontando para cima. Só entra no
+   DOM depois de rolar além do índice (controle em lib/pages/doc.dart). */
+.back-to-top {
+  display: none;
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  animation: back-to-top-float 2.2s ease-in-out infinite;
+}
+
+/* Sem círculo/bolinha de fundo no hover — apenas brilho sutil na seta */
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  background: transparent;
+  outline: none;
+}
+
+.chevron-icon--up {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-right: 2px solid rgba(237, 237, 237, 0.55);
+  border-bottom: 2px solid rgba(237, 237, 237, 0.55);
+  transform: rotate(225deg);
+  border-bottom-right-radius: 3px;
+  transition: border-color 0.2s ease, filter 0.2s ease;
+}
+
+.back-to-top:hover .chevron-icon--up,
+.back-to-top:focus-visible .chevron-icon--up {
+  border-color: var(--accent);
+  filter: drop-shadow(0 0 6px rgba(229, 72, 77, 0.6));
+}
+
+@keyframes back-to-top-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (min-width: 721px) {
+  .back-to-top {
+    display: flex;
+  }
+}
+
+/* Mobile (≤720px): botão "↑" dentro do título de cada seção, na borda
+   oposta ao texto (o título usa justify-content: space-between). */
+.doc-section-top-btn {
+  display: none;
+  padding: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #a1a1aa;
+  transition: color 0.2s ease, filter 0.2s ease;
+}
+
+.doc-section-top-btn:hover,
+.doc-section-top-btn:focus-visible {
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px rgba(229, 72, 77, 0.6));
+  outline: none;
+}
+
+@media (max-width: 720px) {
+  .doc-section-top-btn {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top {
+    animation: none;
+  }
+}

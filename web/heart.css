@@ -1,0 +1,140 @@
+/* ============================================================
+   heart.css — Coração animado (fundo fixo)
+   Calculadora PREVENT™ pt-BR
+   ------------------------------------------------------------
+   CAMADAS:
+
+   1) Fallback SVG — renderizada pelo Jaspr (sempre presente):
+
+        <div class="heart-bg" aria-hidden="true">
+          <img class="heart-bg__fallback"
+               src="assets/heart.svg" alt="" />
+        </div>
+
+   2) Canvas 3D — criada e controlada pelo heart3d.js, FORA da
+      árvore do Jaspr (primeiro filho de <body>):
+
+        <div id="heart3d-layer" class="heart3d-layer" aria-hidden="true">
+          <canvas …></canvas>
+        </div>
+
+   - O fallback SVG fica ESCONDIDO por padrão (nada pisca no load/reload).
+     Ele só aparece se o heart3d.js sinalizar falha, adicionando
+     .heart3d-failed ao <body>. Com WebGL ok, o heart3d.js adiciona
+     .heart3d-ready ao <body> e o canvas 3D assume (batimento em JS,
+     mesmo ciclo lub-dub de 857 ms). As classes ficam no <body> porque
+     o Jaspr re-renderiza .heart-bg na hidratação — mas nunca toca a
+     layer JS nem o <body>.
+   - Ambas as camadas ficam atrás de todo o conteúdo (z-index: 0) e não
+     capturam cliques. As seções de conteúdo devem vir com z-index >= 1.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Camada 3D (criada pelo heart3d.js; viewport inteira, fixa;
+   o coração é posicionado à esquerda via câmera no JS)
+   ------------------------------------------------------------ */
+/* DIMMING POR ROTA: o heart3d.js mantém document.body.dataset.route
+   atualizado ('/' → 'home', '/doc' → 'doc'), inclusive em navegação
+   client-side do SPA. O JS NÃO muda opacidade — o dimming da rota /doc
+   é feito aqui no CSS, ex.:
+
+     body[data-route='doc'] .heart3d-layer { opacity: 0.25; }
+
+   (regra implementada em web/main.css; na home a layer permanece com
+   opacidade 0.6, definida abaixo) */
+.heart3d-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.6; /* brilho reduzido na home p/ leitura da calculadora */
+
+  /* Glow sutil em volta da silhueta do coração (o canvas tem
+     fundo transparente, então o drop-shadow segue a forma) */
+  filter:
+    drop-shadow(0 0 1.2rem rgba(229, 72, 77, 0.28))
+    drop-shadow(0 0 3.8rem rgba(229, 72, 77, 0.12));
+}
+
+.heart3d-layer canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ------------------------------------------------------------
+   Camada de fallback SVG (renderizada pelo Jaspr). ESCONDIDA por
+   padrão: só aparece quando o heart3d.js sinaliza falha
+   (body.heart3d-failed) — assim nada "pisca" durante o load.
+   ------------------------------------------------------------ */
+.heart-bg {
+  display: none; /* revelada só via body.heart3d-failed (regra abaixo) */
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  align-items: center;          /* verticalmente centralizado */
+  justify-content: flex-start;  /* ancorado à esquerda */
+}
+
+body.heart3d-failed .heart-bg {
+  display: flex;
+}
+
+.heart-bg > img,
+.heart-bg > svg {
+  /* Tamanho responsivo: 80% do menor lado da viewport */
+  height: 80vmin;
+  width: auto;
+  flex: none;
+
+  /* Região esquerda (~2/3 esquerda / 1/3 direita livre para o conteúdo) */
+  margin-left: 6vw;
+
+  opacity: 0.35;
+
+  /* Glow sutil em volta do traço */
+  filter:
+    drop-shadow(0 0 1.1rem rgba(229, 72, 77, 0.35))
+    drop-shadow(0 0 3.5rem rgba(229, 72, 77, 0.15));
+
+  /* Batimento lub-dub ~70 bpm: ciclo de 857 ms (60 000 / 70 ≈ 857) */
+  transform-origin: 46% 55%; /* centro da massa ventricular no viewBox */
+  animation: heartbeat 857ms ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Dois pulsos rápidos de escala seguidos de pausa:
+   1 → 1.06 (lub, S1) → 1.02 → 1.08 (dub, S2) → 1 → repouso até o fim */
+@keyframes heartbeat {
+  0%   { transform: scale(1);    }
+  12%  { transform: scale(1.06); } /* lub  (~103 ms) */
+  22%  { transform: scale(1.02); } /*      (~188 ms) */
+  34%  { transform: scale(1.08); } /* dub  (~291 ms) */
+  50%  { transform: scale(1);    } /*      (~429 ms) */
+  100% { transform: scale(1);    } /* pausa (~429–857 ms) */
+}
+
+/* Acessibilidade: desliga a animação para quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  .heart-bg img,
+  .heart-bg svg {
+    animation: none;
+  }
+}
+
+/* Telas estreitas: mantém o coração à esquerda, um pouco mais discreto */
+@media (max-width: 720px) {
+  .heart3d-layer {
+    opacity: 0.45;
+  }
+
+  .heart-bg img,
+  .heart-bg svg {
+    height: 88vmin;
+    margin-left: 2vw;
+    opacity: 0.28;
+  }
+}
